@@ -1,0 +1,33 @@
+.container-page {
+  margin: 0 auto;
+  margin-block: 2.5%;
+  height: 85vh;
+  width: 70%;
+  min-width: 800px;
+  background-color: rgba(255, 255, 255, 0.614);
+  border-radius: 20px;
+  box-shadow: 2px 5px 10px 1px black;
+  backdrop-filter: blur(5px);
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    height: 300px;
+  }
+}
+
+.add-info {
+  display: flex;
+  flex-direction: column;
+  &__balance-container {
+    color: black;
+  }
+
+  &__transaction-history {
+    // color: black;
+  }
+}
+
+.add-form-modal {
+  
+}

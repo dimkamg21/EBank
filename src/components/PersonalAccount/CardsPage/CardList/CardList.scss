@@ -1,0 +1,52 @@
+.container-l {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  overflow: hidden;
+  // height: 41%;
+
+}
+
+.cards-container {
+  transition: opacity 0.5 ease-in;
+  transition: transform 0.3s linear;
+
+  opacity: 1;
+  transform: translateX(0%);
+  // overflow-x: hidden;
+  // overflow: hidden;
+}
+
+// .fade-right {
+//   transform: translateX(-100%);
+//   // opacity: 0;
+// }
+
+.fade-out {
+  opacity: 0.3;
+}
+
+// .fade-left {
+//   transform: translateX(100%);
+//   // opacity: 0;
+// }
+
+.prev-button,
+.next-button {
+  position: relative;
+  height: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  border-radius: 10%;
+  cursor: pointer;
+  transition: background 0.3s;
+  font-size: 16px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
