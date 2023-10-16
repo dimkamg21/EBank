@@ -26,3 +26,23 @@
     }
   }
 }
+
+.transaction-history {
+  margin-top: 20px;
+  padding: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+  white-space: pre-line; /* Важливо для відображення рядків у текстовому вигляді */
+}
+
+.transaction-history ul {
+  list-style: none;
+  padding: 0;
+}
+
+.transaction-history li {
+  box-shadow: 1px 0px 15px 0px black;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 10px 0;
+}

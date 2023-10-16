@@ -6,6 +6,7 @@ import '../CardsPage/CardList/CardList.scss';
 import './Transaction.scss';
 
 export const TransactionPage: React.FC = () => {
+  const [transactionHistory, setTransactionHistory] = useState<History[]>([]);
   const cardContext = useContext(CardContext);
   const { userCards, setUserCards } = cardContext;
 
@@ -19,7 +20,7 @@ export const TransactionPage: React.FC = () => {
     monthExpire: '12',
     yearExpire: '25',
     cvv: '123',
-    balance: 0,
+    balance: 500,
   };
 
   const card2: Card = {
@@ -28,7 +29,7 @@ export const TransactionPage: React.FC = () => {
     monthExpire: '03',
     yearExpire: '24',
     cvv: '456',
-    balance: 0,
+    balance: 889,
   };
 
   const card3: Card = {
@@ -37,8 +38,46 @@ export const TransactionPage: React.FC = () => {
     monthExpire: '07',
     yearExpire: '23',
     cvv: '789',
-    balance: 0,
+    balance: 785,
   };
+
+  const handleMakePayment = (e) => {
+    e.preventDefault();
+    
+    // Отримайте дані з форми
+    const recipientCard = e.target.querySelector('[name="cardNumber"]').value;
+    const amount = e.target.querySelector('[placeholder="Amount"]').value;
+    const paymentPurpose = e.target.querySelector('[placeholder="Payment Purpose"]').value;
+    
+    // Знайдіть поточну карту, з якої надсилається переказ
+    const senderCard = userCards[currentCard];
+  
+    // Оновіть баланс кожної карти
+    const updatedUserCards = userCards.map((card, index) => {
+      if (index === currentCard) {
+        const newBalance = card.balance - parseFloat(amount);
+        return { ...card, balance: newBalance };
+      }
+      return card;
+    });
+  
+    // Оновіть стан користувача та історію переказів
+    setUserCards(updatedUserCards);
+    setTransactionHistory([
+      ...transactionHistory,
+      {
+        senderCard: senderCard.cardNumber,
+        recipientCard,
+        amount: parseFloat(amount),
+        balance: senderCard.balance - parseFloat(amount),
+        paymentPurpose,
+      },
+    ]);
+    
+    // Очистіть поля вводу
+    e.target.reset();
+  };
+  
 
   useEffect(() => {
     setUserCards([card1, card2, card3]);
@@ -86,6 +125,7 @@ export const TransactionPage: React.FC = () => {
         <form
           action=""
           className="input-container"
+          onSubmit={handleMakePayment}
         >
           <input
             type="text"
@@ -101,14 +141,32 @@ export const TransactionPage: React.FC = () => {
             className="card-number-input"
           />
           <input
-            type="text"
-            placeholder="Payment purpose"
-            className="card-number-input"
+             type="text"
+             placeholder="Payment Purpose"
+             name="paymentPurpose"
+             className="card-number-input"
           />
 
-          <button>Make payment</button>
+          <button type="submit">Make payment</button>
         </form>
       </div>
+
+      {transactionHistory.length && (
+        <div className="transaction-history">
+          <h2>Transaction History</h2>
+          <ul>
+            {transactionHistory.map((transaction, index) => (
+              <li key={index} className="transaction-item">
+                {` Sender Card: ${transaction.senderCard}   
+                Recipient Card: ${transaction.recipientCard}   
+                Balance: ${transaction.balance}    
+                Amount: ${transaction.amount}
+                Payment Purpose: ${transaction.paymentPurpose}`}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };
