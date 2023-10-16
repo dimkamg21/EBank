@@ -24,8 +24,8 @@ export const Header: React.FC = () => {
         <nav className="header__navbar">
           <Link className="header__logo">EBank</Link>
           <ul className="nav__links ">
-            <li className="nav__link underline"><NavLink className={getLinkClass} to="cards">CARDS</NavLink></li>
-            <li className="nav__link underline"><NavLink className={getLinkClass} to="">TRANSFER</NavLink></li>
+            <li className="nav__link underline"><NavLink className={getLinkClass} to="">CARDS</NavLink></li>
+            <li className="nav__link underline"><NavLink className={getLinkClass} to="transfer">TRANSFER</NavLink></li>
             {/* <li className="nav__link underline"><NavLink className={getLinkClass} to="">HISTORY</NavLink></li> */}
             <li className="nav__link underline"><NavLink className={getLinkClass} to="">MOBILE TOP-UP</NavLink></li>
           </ul>

@@ -19,12 +19,13 @@ export const CardsPage: React.FC = () => {
           </div>
 
           <button className="add-info__transaction-history">Show Transaction History</button>
-          <button onClick={() => setIsAddForm(true)}>Add a new Card</button>
+          <button className="add-info__new-card-form" onClick={() => setIsAddForm(true)}>Add a new Card</button>
         </div>
       </div>
 
       {isAddForm && (
         <div className="add-form-modal">
+          <button className="turn-back" onClick={() => setIsAddForm(false)}>Cancel</button>
           <AddCardForm />
         </div>
       )}

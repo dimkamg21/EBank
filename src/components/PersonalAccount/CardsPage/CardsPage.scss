@@ -19,15 +19,45 @@
 .add-info {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
+  
+  margin-right: 60px;
+
   &__balance-container {
-    color: black;
+    color: rgb(72, 0, 160);
+    font-size: 25px;
   }
 
-  &__transaction-history {
-    // color: black;
+  &__transaction-history, &__new-card-form  {
+    border-radius: 20px;
+    background-color: #630186;
+    font-size: 15px;
+    color: #fff;
   }
+
+  &__transaction-history:hover , &__new-card-form:hover  {
+    background-color: #8d04be;
+  }
+
+  &__new-card-form {}
 }
 
 .add-form-modal {
-  
+  position: fixed;
+  top: 0;
+  width: 100%;
+  // height: 100%; /* Розширити на весь екран */
+  // background: rgba(135, 65, 147, 0.199); /* Фон з прозорістю */
+  backdrop-filter: blur(5px); /* Розмиття фону */
+  border-radius: 5px;
+  z-index: 999; 
+}
+
+.turn-back {
+  padding-inline: 9px;
+  color: black;
+  background-color: white;
+  border-color: #630186;
+  margin-left: 10px;
+  margin-top: 5px;
 }
