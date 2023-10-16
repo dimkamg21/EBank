@@ -24,10 +24,10 @@ export const Header: React.FC = () => {
         <nav className="header__navbar">
           <Link className="header__logo" to="">EBank</Link>
           <ul className="nav__links ">
-            <li className="nav__link underline"><NavLink className={getLinkClass} to="">CARDS</NavLink></li>
+            <li className="nav__link underline"><NavLink className={getLinkClass} to="cards">CARDS</NavLink></li>
             <li className="nav__link underline"><NavLink className={getLinkClass} to="transfer">TRANSFER</NavLink></li>
             {/* <li className="nav__link underline"><NavLink className={getLinkClass} to="">HISTORY</NavLink></li> */}
-            <li className="nav__link underline"><NavLink className={getLinkClass} to="">MOBILE TOP-UP</NavLink></li>
+            <li className="nav__link underline"><NavLink className={getLinkClass} to="mobile-top-up">MOBILE TOP-UP</NavLink></li>
           </ul>
           <div className="header__personal-info">
             <div className="header__personal-info__user">
@@ -36,17 +36,13 @@ export const Header: React.FC = () => {
                 <img src="src/img/icons/user.png" alt="" />
               </span>
             </div>
-            <p className="header__balance">??? UAH</p>
+            {/* <p className="header__balance">??? UAH</p> */}
           </div>
         </nav>
       </header>
 
       <Outlet />
     </div>
-
-    // <p classNameName="read-the-docs">
-    //   YOU LOSE ALL YOUR MONEY
-    // </p>
 
     // const navigate = useNavigate();
 

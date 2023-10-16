@@ -54,7 +54,7 @@ export const TransactionPage: React.FC = () => {
   };
 
   useEffect(() => {
-    
+
     const cardElement = document.getElementById('cards-trans');
     if (cardElement) {
 
@@ -83,12 +83,12 @@ export const TransactionPage: React.FC = () => {
           <button className="next-button" onClick={nextSlide}>{'>'}</button>
         </div>
 
-        <form 
+        <form
           action=""
           className="input-container"
         >
-          <input 
-            type="text" 
+          <input
+            type="text"
             placeholder="Recipient's card"
             name="cardNumber"
             maxLength={16}
@@ -96,13 +96,13 @@ export const TransactionPage: React.FC = () => {
             minLength={16}
           />
           <input
-            type="text" 
-            placeholder="Amount" 
+            type="text"
+            placeholder="Amount"
             className="card-number-input"
           />
-          <input 
-            type="text" 
-            placeholder="Payment purpose" 
+          <input
+            type="text"
+            placeholder="Payment purpose"
             className="card-number-input"
           />
 

@@ -42,13 +42,12 @@
     text-align: center;
     background-color: #ecf0f3;
     border-radius: 20px;
-    padding: 0 10px;
+    padding: 10px 10px;
 
     &__user {
       display: flex;
       flex-direction: row-reverse;
       gap: 5px;
-      // line-height: ;
     }
   }
 }
@@ -66,8 +65,8 @@
     font-size: 18px;
 
     background: linear-gradient(0deg, slateblue, slateblue) no-repeat right bottom / 0 var(--bg-h);
-  transition: background-size 350ms;
-  --bg-h: 100%;
+    transition: background-size 350ms;
+    --bg-h: 100%;
 
     &:where(:hover, :focus-visible) {
       background-size: 100% var(--bg-h);
@@ -89,6 +88,9 @@
 .is-active {
   padding-bottom: 2px;
   --bg-h: 2px;
+  background: linear-gradient(0deg, slateblue, slateblue) no-repeat right bottom / 0 var(--bg-h);
+  background-size: 100% var(--bg-h);
+  background-position-x: left;
 }
 
 .underline {

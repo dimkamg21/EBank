@@ -1,9 +1,9 @@
 import React, { createContext, useState } from 'react';
-import { Transaction } from '../../../types/Transactions';
+import { TransactionType } from '../../../types/Transactions';
 
 type TransactionContextType = {
-  userTransactions: Transaction[];
-  setUserTransactions: React.Dispatch<React.SetStateAction<Transaction[]>>;
+  userTransactions: TransactionType[];
+  setUserTransactions: React.Dispatch<React.SetStateAction<TransactionType[]>>;
 };
 
 const initialValue: TransactionContextType = {
@@ -19,7 +19,7 @@ type Props = {
 };
 
 export const TransactionsProvider: React.FC<Props> = ({ children }) => {
-  const [userTransactions, setUserTransactions] = useState<Transaction[]>([]);
+  const [userTransactions, setUserTransactions] = useState<TransactionType[]>([]);
 
   return (
     <TransactionsContext.Provider value={{ userTransactions, setUserTransactions }}>
