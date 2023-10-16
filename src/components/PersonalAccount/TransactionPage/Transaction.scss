@@ -1,0 +1,30 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-around;
+  width: 40%;
+
+  & .card-number-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: #444;
+  }
+
+  & button {
+    color: white;
+    background: linear-gradient(45deg, #300544, #9125b8);
+    cursor: pointer;
+    transition: .2s linear;
+
+
+    &:hover {
+      letter-spacing: 2px;
+      opacity: 0.8;   
+    }
+  }
+}
+
+
