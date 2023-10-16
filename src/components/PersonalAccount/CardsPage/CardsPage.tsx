@@ -1,21 +1,29 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './CardsPage.scss';
 // import { Card } from '../../../types/Card';
 import { AddCardForm } from './AddCardForm/AddCardForm';
 import { CardList } from './CardList/CardList';
+import { CardContext } from '../CardContext/CardContext';
+
 
 export const CardsPage: React.FC = () => {
   console.log(document.URL);
   // const [userCards, setUserCards] = useState<Card[]>([]);
   const [isAddForm, setIsAddForm] = useState(false);
 
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+
+
+  const cardContext = useContext(CardContext);
+  const { userCards } = cardContext;
+
   return (
     <div className="container-page">
       <div className="container-page__top">
-        <CardList />
+        <CardList currentCard={currentCardIndex} setCurrentCard={setCurrentCardIndex} />
         <div className="add-info">
           <div className="add-info__balance-container">
-            <h3>Balance: <strong>0.00</strong></h3>
+            <h3>Balance: <strong className="balance-window">{userCards[currentCardIndex]?.balance || 0}</strong></h3>
           </div>
 
           <button className="add-info__transaction-history">Show Transaction History</button>

@@ -4,12 +4,17 @@ import { CardTemplate } from '../CardTemplate/CardTempate';
 import { Card } from '../../../../types/Card';
 import './CardList.scss';
 
-export const CardList: React.FC = () => {
+type Props = {
+  currentCard: number,
+  setCurrentCard: (currentCard: number) => void,
+};
+
+export const CardList: React.FC<Props> = ({ currentCard, setCurrentCard}) => {
   const cardContext = useContext(CardContext);
   const { userCards, setUserCards } = cardContext;
 
 
-  const [currentCard, setCurrentCard] = useState(0);
+  // const [currentCard, setCurrentCard] = useState(0);
   const [showCVV, setShowCVV] = useState(false);
 
   const card1: Card = {
@@ -18,6 +23,7 @@ export const CardList: React.FC = () => {
     monthExpire: '12',
     yearExpire: '25',
     cvv: '123',
+    balance: 132,
   };
 
   const card2: Card = {
@@ -26,6 +32,7 @@ export const CardList: React.FC = () => {
     monthExpire: '03',
     yearExpire: '24',
     cvv: '456',
+    balance: 432,
   };
 
   const card3: Card = {
@@ -34,6 +41,7 @@ export const CardList: React.FC = () => {
     monthExpire: '07',
     yearExpire: '23',
     cvv: '789',
+    balance: 932,
   };
 
   useEffect(() => {
@@ -42,12 +50,14 @@ export const CardList: React.FC = () => {
   }, []);
 
   const nextSlide = () => {
-    setCurrentCard((prevSlide) => (prevSlide === userCards.length - 1 ? 0 : prevSlide + 1));
+    const newSlideIndex = currentCard === userCards.length - 1 ? 0 : currentCard + 1;
+    setCurrentCard(newSlideIndex);
   };
-
+  
   const prevSlide = () => {
-    setCurrentCard((prevSlide) => (prevSlide === 0 ? userCards.length - 1 : prevSlide - 1));
-  };
+    const newSlideIndex = currentCard === 0 ? userCards.length - 1 : currentCard - 1;
+    setCurrentCard(newSlideIndex);
+  };  
 
   useEffect(() => {
     

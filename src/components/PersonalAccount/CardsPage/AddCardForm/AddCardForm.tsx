@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 // import './AddCardForm.scss';
 import { CardTemplate } from '../CardTemplate/CardTempate';
+import { CardContext } from '../../CardContext/CardContext';
 
 export const AddCardForm: React.FC = () => {
   const [cardData, setCardData] = useState({
@@ -9,9 +10,14 @@ export const AddCardForm: React.FC = () => {
     monthExpire: '',
     yearExpire: '',
     cvv: '',
+    balance: 0,
   });
 
+  const cardContext = useContext(CardContext);
+  const { userCards, setUserCards } = cardContext;
+
   const [isHovered, setIsHovered] = useState(false);
+  const [cardAlreadyExistError, setCardAlreadyExistError] = useState(false);
 
   // зробити перевірку якшо номер карти вже є в списку, то не добавляти її
 
@@ -23,11 +29,11 @@ export const AddCardForm: React.FC = () => {
     }
   };
 
-  
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const name = event.target.name;
     const value = event.target.value;
-    
+
     setCardData({
       ...cardData,
       [name]: value,
@@ -46,12 +52,43 @@ export const AddCardForm: React.FC = () => {
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setCardAlreadyExistError(false);
+
+
+    const cardAlreadyExist = userCards.some(card => card.cardNumber === cardData.cardNumber);
+
+    if (cardAlreadyExist) {
+      setCardAlreadyExistError(true);
+      return;
+    }
+
+    const randomBalance = Math.floor(Math.random() * 50000);
+
+    const cardWithBalance = {
+      ...cardData,
+      balance: randomBalance,
+    };
+
+    setUserCards([...userCards, cardWithBalance]);
+    setCardData({
+      cardNumber: '',
+      holderName: '',
+      monthExpire: '',
+      yearExpire: '',
+      cvv: '',
+      balance: 0,
+    })
+  };
+
+
   return (
     <div className="container">
 
       <CardTemplate isHovered={isHovered} cardData={cardData} />
 
-      <form action="">
+      <form onSubmit={handleSubmit}>
         <div className="inputBox">
           <span>Card Number</span>
           <input
@@ -62,13 +99,17 @@ export const AddCardForm: React.FC = () => {
             minLength={16}
             onKeyPress={handleKeyPress}
             onChange={handleInputChange}
+            value={cardData.cardNumber}
           />
         </div>
         <div className="inputBox">
           <span>Card Holder</span>
-          <input type="text" className="card-holder-input"
+          <input 
+            type="text" 
+            className="card-holder-input"
             onChange={handleInputChange}
             name="holderName"
+            value={cardData.holderName}
           />
         </div>
 
@@ -124,6 +165,7 @@ export const AddCardForm: React.FC = () => {
               type="text"
               minLength={3}
               maxLength={3}
+              value={cardData.cvv}
               className="cvv-input"
               onMouseEnter={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -133,8 +175,16 @@ export const AddCardForm: React.FC = () => {
           </div>
         </div>
 
-        <button type="submit" value="Submit" className="submit-btn" >Submit</button>
+        <button
+          value="Submit"
+          className="submit-btn"
+          // onSubmit={handleSubmit}
+        >
+          Submit
+        </button>
       </form>
+
+      {cardAlreadyExistError && <p className="error-message">This card already exist</p>}
     </div>
   );
 };
