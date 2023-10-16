@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
     <div className="html">
       <header className="header">
         <nav className="header__navbar">
-          <Link className="header__logo">EBank</Link>
+          <Link className="header__logo" to="">EBank</Link>
           <ul className="nav__links ">
             <li className="nav__link underline"><NavLink className={getLinkClass} to="cards">CARDS</NavLink></li>
             <li className="nav__link underline"><NavLink className={getLinkClass} to="transfer">TRANSFER</NavLink></li>
