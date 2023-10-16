@@ -25,8 +25,8 @@ export const CardTemplate: React.FC<Props> = ({ isHovered, cardData }) => {
 
         <div className={frontClass}>
           <div className="image">
-            <img src="src/img/chip-logo.png" alt="chip" />
-            <img src="src/img/master2.png" alt="" />
+            <img src="../src/img/chip-logo.png" alt="chip" />
+            <img src="../src/img/master2.png" alt="" />
           </div>
           <div className="card-number-box">
           {cardData && cardData.cardNumber ? cardData.cardNumber : '################'}

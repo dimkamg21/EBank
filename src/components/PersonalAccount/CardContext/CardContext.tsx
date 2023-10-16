@@ -8,7 +8,7 @@ type CardContextType = {
 };
 
 const initialValue: CardContextType = {
-  userCards: [],
+  userCards: [], 
   setUserCards: () => {}
 };
 
