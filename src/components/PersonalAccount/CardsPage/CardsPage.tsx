@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, {  useState } from 'react';
 import './CardsPage.scss';
 // import { Card } from '../../../types/Card';
 import { AddCardForm } from './AddCardForm/AddCardForm';
 import { CardList } from './CardList/CardList';
+// import { CardContext } from '../CardContext/CardContext';
+
 
 export const CardsPage: React.FC = () => {
   console.log(document.URL);
   // const [userCards, setUserCards] = useState<Card[]>([]);
   const [isAddForm, setIsAddForm] = useState(false);
+
+  // const cardContext = useContext(CardContext);
+  // const { userCards, setUserCards } = cardContext;
+
+  // const 
 
   return (
     <div className="container-page">

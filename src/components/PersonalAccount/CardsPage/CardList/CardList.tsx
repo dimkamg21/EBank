@@ -18,6 +18,7 @@ export const CardList: React.FC = () => {
     monthExpire: '12',
     yearExpire: '25',
     cvv: '123',
+    balance: 0,
   };
 
   const card2: Card = {
@@ -26,6 +27,7 @@ export const CardList: React.FC = () => {
     monthExpire: '03',
     yearExpire: '24',
     cvv: '456',
+    balance: 0,
   };
 
   const card3: Card = {
@@ -34,6 +36,7 @@ export const CardList: React.FC = () => {
     monthExpire: '07',
     yearExpire: '23',
     cvv: '789',
+    balance: 0,
   };
 
   useEffect(() => {
