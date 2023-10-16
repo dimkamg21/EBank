@@ -18,7 +18,9 @@ export const Root = () => (
           <Route path="program" element={<RequireAuth /> }>
             <Route element={<Header />}>
               <Route index element={<CardsPage />} />
+              <Route path="cards" element={<CardsPage />} />
               <Route path="transfer" element={<TransactionPage />} />
+              <Route path="mobile-top-up" element={<TransactionPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Route>
