@@ -10,7 +10,7 @@ export const CardsPage: React.FC = () => {
   console.log(document.URL);
   // const [userCards, setUserCards] = useState<Card[]>([]);
   const [isAddForm, setIsAddForm] = useState(false);
-  const [showHistory, setShowHistory] = useState(false);
+  const [showHistory] = useState(true);
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
@@ -39,9 +39,11 @@ export const CardsPage: React.FC = () => {
         </div>
       )}
 
-      {/* <div className="history-transaction">
-        <p>No history yet</p>
-      </div> */}
+      {showHistory && (
+        <div className="history-transaction">
+          <p>No history yet</p>
+        </div>
+      )}
     </div>
   );
 };
