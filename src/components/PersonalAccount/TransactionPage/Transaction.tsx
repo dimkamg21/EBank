@@ -151,7 +151,7 @@ export const TransactionPage: React.FC = () => {
         </form>
       </div>
 
-      {transactionHistory.length && (
+      {transactionHistory.length > 0 && (
         <div className="transaction-history">
           <h2>Transaction History</h2>
           <ul>
