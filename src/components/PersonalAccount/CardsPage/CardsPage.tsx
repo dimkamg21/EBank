@@ -17,11 +17,7 @@ export const CardsPage: React.FC = () => {
 
   const cardContext = useContext(CardContext);
   const { userCards } = cardContext;
-
-  // const cardContext = useContext(CardContext);
-  // const { userCards, setUserCards } = cardContext;
-
-  // const 
+  console.log(userCards);
 
   return (
     <div className="container-page">
@@ -32,8 +28,14 @@ export const CardsPage: React.FC = () => {
             <h3>Balance: <strong className="balance-window">{userCards[currentCardIndex]?.balance || 0}</strong></h3>
           </div>
 
-          <button className="add-info__transaction-history">Show Transaction History</button>
           <button className="add-info__new-card-form" onClick={() => setIsAddForm(true)}>Add a new Card</button>
+
+          <button 
+            className="add-info__transaction-history" 
+            onClick={() => setShowHistory(!showHistory)}
+          >
+            Show Transaction History
+          </button>
         </div>
       </div>
 
@@ -44,9 +46,11 @@ export const CardsPage: React.FC = () => {
         </div>
       )}
 
-      {/* <div className="history-transaction">
-        <p>No history yet</p>
-      </div> */}
+      {showHistory && (
+        <div className="history-transaction">
+          <p>No history yet</p>
+        </div>
+      )}
     </div>
   );
 };

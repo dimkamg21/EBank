@@ -1,45 +1,20 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { CardContext } from '../CardContext/CardContext';
-import { Card } from '../../../types/Card';
+// import { Card } from '../../../types/Card';
 import { CardTemplate } from '../CardsPage/CardTemplate/CardTempate';
 import '../CardsPage/CardList/CardList.scss';
 import './Transaction.scss';
+import { Transaction, TransactionType } from '../../../types/Transactions';
 
 export const TransactionPage: React.FC = () => {
-  const [transactionHistory, setTransactionHistory] = useState<History[]>([]);
+  const [transactionHistory, setTransactionHistory] = useState<Transaction[]>([]);
+  const [transactionType, setTransactionType] = useState<TransactionType>('withdrawal');
   const cardContext = useContext(CardContext);
   const { userCards, setUserCards } = cardContext;
 
 
   const [currentCard, setCurrentCard] = useState(0);
   const [showCVV, setShowCVV] = useState(false);
-
-  const card1: Card = {
-    cardNumber: '1234567890123456',
-    holderName: 'John Doe',
-    monthExpire: '12',
-    yearExpire: '25',
-    cvv: '123',
-    balance: 500,
-  };
-
-  const card2: Card = {
-    cardNumber: '9876543210987654',
-    holderName: 'Jane Smith',
-    monthExpire: '03',
-    yearExpire: '24',
-    cvv: '456',
-    balance: 889,
-  };
-
-  const card3: Card = {
-    cardNumber: '1111222233334444',
-    holderName: 'Alice Johnson',
-    monthExpire: '07',
-    yearExpire: '23',
-    cvv: '789',
-    balance: 785,
-  };
 
   const handleMakePayment = (e) => {
     e.preventDefault();
@@ -58,31 +33,27 @@ export const TransactionPage: React.FC = () => {
         const newBalance = card.balance - parseFloat(amount);
         return { ...card, balance: newBalance };
       }
+
       return card;
     });
   
     // Оновіть стан користувача та історію переказів
     setUserCards(updatedUserCards);
     setTransactionHistory([
-      ...transactionHistory,
       {
         senderCard: senderCard.cardNumber,
         recipientCard,
+        type: 'withdrawal',
         amount: parseFloat(amount),
         balance: senderCard.balance - parseFloat(amount),
         paymentPurpose,
       },
+      ...transactionHistory,
     ]);
     
     // Очистіть поля вводу
     e.target.reset();
   };
-  
-
-  useEffect(() => {
-    setUserCards([card1, card2, card3]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const nextSlide = () => {
     setCurrentCard((prevSlide) => (prevSlide === userCards.length - 1 ? 0 : prevSlide + 1));
@@ -122,36 +93,74 @@ export const TransactionPage: React.FC = () => {
           <button className="next-button" onClick={nextSlide}>{'>'}</button>
         </div>
 
-        <form
-          action=""
-          className="input-container"
-          onSubmit={handleMakePayment}
-        >
-          <input
-            type="text"
-            placeholder="Recipient's card"
-            name="cardNumber"
-            maxLength={16}
-            className="card-number-input"
-            minLength={16}
-          />
-          <input
-            type="text"
-            placeholder="Amount"
-            className="card-number-input"
-          />
-          <input
-             type="text"
-             placeholder="Payment Purpose"
-             name="paymentPurpose"
-             className="card-number-input"
-          />
+        {transactionType === 'withdrawal' && (
+          <form
+            action=""
+            className="input-container"
+            onSubmit={handleMakePayment}
+          >
+            <input
+              type="text"
+              placeholder="Recipient's card"
+              name="cardNumber"
+              maxLength={16}
+              className="card-number-input"
+              minLength={16}
+            />
+            <input
+              type="text"
+              placeholder="Amount"
+              className="card-number-input"
+            />
+            <input
+              type="text"
+              placeholder="Payment Purpose"
+              name="paymentPurpose"
+              className="card-number-input"
+            />
 
-          <button type="submit">Make payment</button>
-        </form>
+            <button type="submit">Make payment</button>
+          </form>
+        )}
+
+        {transactionType === 'mobile-top-up' && (
+          <form action="" className="input-container" onSubmit={handleMakePayment}>
+            <input
+              type="text"
+              placeholder="Recipient's phone number"
+              name="phoneNumber"
+              maxLength={10} // Максимальна довжина номера телефону
+              className="card-number-input"
+              minLength={10} // Мінімальна довжина номера телефону
+            />
+            <input type="text" placeholder="Amount" className="card-number-input" />
+            <button type="submit">Make payment</button>
+          </form>
+        )}
       </div>
 
-      {transactionHistory.length > 0 && (
+      <div className="transaction-type-toggle">
+        <label>
+          <input
+            type="radio"
+            value="withdrawal"
+            checked={transactionType === 'withdrawal'}
+            onChange={() => setTransactionType('withdrawal')}
+          />
+          Withdrawal
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="mobile-top-up"
+            checked={transactionType === 'mobile-top-up'}
+            onChange={() => setTransactionType('mobile-top-up')}
+          />
+          Mobile Top-Up
+        </label>
+      </div>
+
+      {/* {transactionHistory.length > 0 && (
         <div className="transaction-history">
           <h2>Transaction History</h2>
           <ul>
@@ -166,7 +175,7 @@ export const TransactionPage: React.FC = () => {
             ))}
           </ul>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

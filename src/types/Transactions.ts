@@ -1,8 +1,11 @@
-export type TransactionType = 'withdrawal' | 'top-up';
+export type TransactionType = 'withdrawal' | 'top-up' | 'mobile-top-up';
 
 export interface Transaction {
-  cardNumber: string,
+  senderCard: string,
+  recipientCard?: string,
+  phoneNumber?: string, 
   type: TransactionType,
   balance: number,
   amount: number,
+  paymentPurpose?: string
 }

@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { CardContext } from '../../CardContext/CardContext';
 import { CardTemplate } from '../CardTemplate/CardTempate';
-import { Card } from '../../../../types/Card';
+// import { Card } from '../../../../types/Card';
 import './CardList.scss';
 
 type Props = {
@@ -11,43 +11,44 @@ type Props = {
 
 export const CardList: React.FC<Props> = ({ currentCard, setCurrentCard}) => {
   const cardContext = useContext(CardContext);
-  const { userCards, setUserCards } = cardContext;
+  const { userCards} = cardContext;
 
 
   // const [currentCard, setCurrentCard] = useState(0);
   const [showCVV, setShowCVV] = useState(false);
 
-  const card1: Card = {
-    cardNumber: '1234567890123456',
-    holderName: 'John Doe',
-    monthExpire: '12',
-    yearExpire: '25',
-    cvv: '123',
-    balance: 132,
-  };
+  // const card1: Card = {
+  //   cardNumber: '1234567890123456',
+  //   holderName: 'John Doe',
+  //   monthExpire: '12',
+  //   yearExpire: '25',
+  //   cvv: '123',
+  //   balance: 132,
+  // };
 
-  const card2: Card = {
-    cardNumber: '9876543210987654',
-    holderName: 'Jane Smith',
-    monthExpire: '03',
-    yearExpire: '24',
-    cvv: '456',
-    balance: 432,
-  };
+  // const card2: Card = {
+  //   cardNumber: '9876543210987654',
+  //   holderName: 'Jane Smith',
+  //   monthExpire: '03',
+  //   yearExpire: '24',
+  //   cvv: '456',
+  //   balance: 432,
+  // };
 
-  const card3: Card = {
-    cardNumber: '1111222233334444',
-    holderName: 'Alice Johnson',
-    monthExpire: '07',
-    yearExpire: '23',
-    cvv: '789',
-    balance: 932,
-  };
+  // const card3: Card = {
+  //   cardNumber: '1111222233334444',
+  //   holderName: 'Alice Johnson',
+  //   monthExpire: '07',
+  //   yearExpire: '23',
+  //   cvv: '789',
+  //   balance: 932,
+  // };
 
-  useEffect(() => {
-    setUserCards([card1, card2, card3]);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   setUserCards([...userCards, card1, card2, card3]);
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
+  
 
   const nextSlide = () => {
     const newSlideIndex = currentCard === userCards.length - 1 ? 0 : currentCard + 1;

@@ -1,5 +1,5 @@
 export type History = { 
-  senderCard: number, 
+  senderCard: string, 
   recipientCard: string, 
   amount: number, 
   balance: number,
