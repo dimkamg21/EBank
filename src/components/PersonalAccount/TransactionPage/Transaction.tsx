@@ -16,44 +16,50 @@ export const TransactionPage: React.FC = () => {
   const [currentCard, setCurrentCard] = useState(0);
   const [showCVV, setShowCVV] = useState(false);
 
-  const handleMakePayment = (e) => {
+  const handleMakePayment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Отримайте дані з форми
-    const recipientCard = e.target.querySelector('[name="cardNumber"]').value;
-    const amount = e.target.querySelector('[placeholder="Amount"]').value;
-    const paymentPurpose = e.target.querySelector('[placeholder="Payment Purpose"]').value;
+    const recipientCardElement = e.currentTarget.querySelector<HTMLInputElement>('[name="cardNumber"]');
+    const amountElement = e.currentTarget.querySelector<HTMLInputElement>('[placeholder="Amount"]');
+    const paymentPurposeElement = e.currentTarget.querySelector<HTMLInputElement>('[placeholder="Payment Purpose"]');
     
-    // Знайдіть поточну карту, з якої надсилається переказ
-    const senderCard = userCards[currentCard];
-  
-    // Оновіть баланс кожної карти
-    const updatedUserCards = userCards.map((card, index) => {
-      if (index === currentCard) {
-        const newBalance = card.balance - parseFloat(amount);
-        return { ...card, balance: newBalance };
-      }
-
-      return card;
-    });
-  
-    // Оновіть стан користувача та історію переказів
-    setUserCards(updatedUserCards);
-    setTransactionHistory([
-      {
-        senderCard: senderCard.cardNumber,
-        recipientCard,
-        type: 'withdrawal',
-        amount: parseFloat(amount),
-        balance: senderCard.balance - parseFloat(amount),
-        paymentPurpose,
-      },
-      ...transactionHistory,
-    ]);
+    if (recipientCardElement && amountElement && paymentPurposeElement) {
+        const recipientCard = recipientCardElement.value;
+        const amount = amountElement.value;
+        const paymentPurpose = paymentPurposeElement.value;
+        
+        // Знайдіть поточну карту, з якої надсилається переказ
+        const senderCard = userCards[currentCard];
+      
+        // Оновіть баланс кожної карти
+        const updatedUserCards = userCards.map((card, index) => {
+          if (index === currentCard) {
+            const newBalance = card.balance - parseFloat(amount);
+            return { ...card, balance: newBalance };
+          }
     
-    // Очистіть поля вводу
-    e.target.reset();
-  };
+          return card;
+        });
+      
+        // Оновіть стан користувача та історію переказів
+        setUserCards(updatedUserCards);
+        setTransactionHistory([
+          {
+            senderCard: senderCard.cardNumber,
+            recipientCard,
+            type: 'withdrawal',
+            amount: parseFloat(amount),
+            balance: senderCard.balance - parseFloat(amount),
+            paymentPurpose,
+          },
+          ...transactionHistory,
+        ]);
+        
+        // Очистіть поля вводу
+        e.currentTarget.reset();
+    }
+};
 
   const nextSlide = () => {
     setCurrentCard((prevSlide) => (prevSlide === userCards.length - 1 ? 0 : prevSlide + 1));
@@ -123,7 +129,7 @@ export const TransactionPage: React.FC = () => {
           </form>
         )}
 
-        {transactionType === 'mobile-top-up' && (
+{transactionType === 'mobile-top-up' && (
           <form action="" className="input-container" onSubmit={handleMakePayment}>
             <input
               type="text"

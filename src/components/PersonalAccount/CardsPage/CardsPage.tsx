@@ -14,7 +14,6 @@ export const CardsPage: React.FC = () => {
 
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
-
   const cardContext = useContext(CardContext);
   const { userCards } = cardContext;
   console.log(userCards);

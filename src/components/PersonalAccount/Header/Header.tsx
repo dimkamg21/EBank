@@ -27,7 +27,7 @@ export const Header: React.FC = () => {
             <li className="nav__link underline"><NavLink className={getLinkClass} to="cards">CARDS</NavLink></li>
             <li className="nav__link underline"><NavLink className={getLinkClass} to="transfer">TRANSFER</NavLink></li>
             {/* <li className="nav__link underline"><NavLink className={getLinkClass} to="">HISTORY</NavLink></li> */}
-            <li className="nav__link underline"><NavLink className={getLinkClass} to="mobile-top-up">MOBILE TOP-UP</NavLink></li>
+            <li className="nav__link underline"><NavLink className={getLinkClass} to="mobile-top-up">CASHBACK</NavLink></li>
           </ul>
           <div className="header__personal-info">
             <div className="header__personal-info__user">

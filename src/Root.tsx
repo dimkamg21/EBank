@@ -7,11 +7,12 @@ import { Header } from './components/PersonalAccount/Header/Header';
 import { CardProvider } from './components/PersonalAccount/CardContext/CardContext';
 import { TransactionPage } from './components/PersonalAccount/TransactionPage/Transaction';
 import { PageNotFound } from './components/PersonalAccount/PageNotFound/PageNotFound';
+import { CashBackPage } from './components/PersonalAccount/CashBackPage/CashBackPage';
 
 export const Root = () => (
   <BrowserRouter>
     <AuthProvider>
-      <CardProvider> {/* Додайте CardProvider */}
+      <CardProvider>
         <Routes>
           <Route index element={<Auth />} />
 
@@ -20,7 +21,7 @@ export const Root = () => (
               <Route index element={<CardsPage />} />
               <Route path="cards" element={<CardsPage />} />
               <Route path="transfer" element={<TransactionPage />} />
-              <Route path="mobile-top-up" element={<TransactionPage />} />
+              <Route path="mobile-top-up" element={<CashBackPage />} />
               <Route path="*" element={<PageNotFound />} />
             </Route>
           </Route>
