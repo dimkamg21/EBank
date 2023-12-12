@@ -1,20 +1,32 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState } from "react";
+import axios from "axios";
 // import './AddCardForm.scss';
-import { CardTemplate } from '../CardTemplate/CardTempate';
-import { CardContext } from '../../CardContext/CardContext';
+import { CardTemplate } from "../CardTemplate/CardTempate";
+import { CardContext } from "../../CardContext/CardContext";
+import { AuthContext } from "../../../Auth/AuthContext";
+
+type NotFormatedcCard = {
+  cardNumber: "";
+  holderName: "";
+  monthExpire: "";
+  yearExpire: "";
+  cvv: "";
+  balance: 0;
+};
 
 export const AddCardForm: React.FC = () => {
-  const [cardData, setCardData] = useState({
-    cardNumber: '',
-    holderName: '',
-    monthExpire: '',
-    yearExpire: '',
-    cvv: '',
+  const [cardData, setCardData] = useState<NotFormatedcCard>({
+    cardNumber: "",
+    holderName: "",
+    monthExpire: "",
+    yearExpire: "",
+    cvv: "",
     balance: 0,
   });
 
   const cardContext = useContext(CardContext);
   const { userCards, setUserCards } = cardContext;
+  const { id } = useContext(AuthContext);
 
   const [isHovered, setIsHovered] = useState(false);
   const [cardAlreadyExistError, setCardAlreadyExistError] = useState(false);
@@ -29,8 +41,9 @@ export const AddCardForm: React.FC = () => {
     }
   };
 
-
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const name = event.target.name;
     const value = event.target.value;
 
@@ -54,13 +67,16 @@ export const AddCardForm: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
     setCardAlreadyExistError(false);
 
-
-    const cardAlreadyExist = userCards.some(card => card.cardNumber === cardData.cardNumber);
+    const cardAlreadyExist = userCards.some(
+      (card) => card.number === cardData.cardNumber
+    );
 
     if (cardAlreadyExist) {
       setCardAlreadyExistError(true);
+
       return;
     }
 
@@ -71,22 +87,53 @@ export const AddCardForm: React.FC = () => {
       balance: randomBalance,
     };
 
-    setUserCards([...userCards, cardWithBalance]);
+    const data = {
+      number: cardWithBalance.cardNumber,
+      date: cardWithBalance.monthExpire + "/" + cardWithBalance.yearExpire,
+      cvv: cardWithBalance.cvv,
+      balance: cardWithBalance.balance,
+      cardholder: cardWithBalance.holderName,
+      user_id: id,
+    };
+
+    axios
+      .post("http://localhost:3001/api/cards/add", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (err) {
+        console.error(err.response.data);
+      });
+
+    setUserCards([...userCards, data]);
     setCardData({
-      cardNumber: '',
-      holderName: '',
-      monthExpire: '',
-      yearExpire: '',
-      cvv: '',
+      cardNumber: "",
+      holderName: "",
+      monthExpire: "",
+      yearExpire: "",
+      cvv: "",
       balance: 0,
-    })
+    });
   };
 
+  const formatedData = (card: NotFormatedcCard) => {
+    return {
+      balance: card.balance,
+      cardholder: card.holderName,
+      cvv: card.cvv,
+      date: `${card.monthExpire}/${card.yearExpire}`,
+      number: card.cardNumber,
+      user_id: id,
+    };
+  };
 
   return (
     <div className="container">
-
-      <CardTemplate isHovered={isHovered} cardData={cardData} />
+      <CardTemplate isHovered={isHovered} cardData={formatedData(cardData)} />
 
       <form onSubmit={handleSubmit}>
         <div className="inputBox">
@@ -104,8 +151,8 @@ export const AddCardForm: React.FC = () => {
         </div>
         <div className="inputBox">
           <span>Card Holder</span>
-          <input 
-            type="text" 
+          <input
+            type="text"
             className="card-holder-input"
             onChange={handleInputChange}
             name="holderName"
@@ -122,7 +169,9 @@ export const AddCardForm: React.FC = () => {
               value={cardData.monthExpire}
               onChange={handleInputChange}
             >
-              <option value="" selected disabled>Month</option>
+              <option value="" selected disabled>
+                Month
+              </option>
               <option value="01">01</option>
               <option value="02">02</option>
               <option value="03">03</option>
@@ -146,7 +195,9 @@ export const AddCardForm: React.FC = () => {
               value={cardData.yearExpire}
               onChange={handleInputChange}
             >
-              <option value="" selected disabled>Year</option>
+              <option value="" selected disabled>
+                Year
+              </option>
               <option value="2023">2023</option>
               <option value="2024">2024</option>
               <option value="2025">2025</option>
@@ -178,13 +229,14 @@ export const AddCardForm: React.FC = () => {
         <button
           value="Submit"
           className="submit-btn"
-          // onSubmit={handleSubmit}
         >
           Submit
         </button>
       </form>
 
-      {cardAlreadyExistError && <p className="error-message">This card already exist</p>}
+      {cardAlreadyExistError && (
+        <p className="error-message">This card already exist</p>
+      )}
     </div>
   );
 };

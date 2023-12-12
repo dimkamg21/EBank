@@ -1,6 +1,4 @@
 import React, { useContext } from 'react';
-// import React from 'react';
-
 import { NavLink, Link, Outlet } from 'react-router-dom';
 import classNames from 'classnames';
 import { AuthContext } from '../../Auth/AuthContext';
@@ -13,10 +11,7 @@ const getLinkClass = ({ isActive }: { isActive: boolean }) => {
 };
 
 export const Header: React.FC = () => {
-  console.log(document.URL);
-
   const { userName } = useContext(AuthContext);
-
   
   return (
     <div className="html">
@@ -26,7 +21,6 @@ export const Header: React.FC = () => {
           <ul className="nav__links ">
             <li className="nav__link underline"><NavLink className={getLinkClass} to="cards">CARDS</NavLink></li>
             <li className="nav__link underline"><NavLink className={getLinkClass} to="transfer">TRANSFER</NavLink></li>
-            {/* <li className="nav__link underline"><NavLink className={getLinkClass} to="">HISTORY</NavLink></li> */}
             <li className="nav__link underline"><NavLink className={getLinkClass} to="mobile-top-up">CASHBACK</NavLink></li>
           </ul>
           <div className="header__personal-info">
@@ -36,7 +30,6 @@ export const Header: React.FC = () => {
                 <img src="src/img/icons/user.png" alt="" />
               </span>
             </div>
-            {/* <p className="header__balance">??? UAH</p> */}
           </div>
         </nav>
       </header>
