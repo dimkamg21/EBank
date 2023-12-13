@@ -20,13 +20,13 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  
+
   margin-right: 60px;
 
   &__balance-container {
     color: #333;
     font-size: 25px;
-    align-items: center; 
+    align-items: center;
     font-weight: normal;
 
     h3 {
@@ -34,14 +34,16 @@
     }
   }
 
-  &__transaction-history, &__new-card-form  {
+  &__transaction-history,
+  &__new-card-form {
     border-radius: 20px;
     background-color: #630186;
     font-size: 15px;
     color: #fff;
   }
 
-  &__transaction-history:hover , &__new-card-form:hover  {
+  &__transaction-history:hover,
+  &__new-card-form:hover {
     background-color: #8d04be;
   }
 }
@@ -52,7 +54,7 @@
   font-size: 20px;
   border-radius: 10px;
   font-weight: normal;
-  box-shadow:  0px 0px 4px 2px rgba(168, 0, 187, 0.5);
+  box-shadow: 0px 0px 4px 2px rgba(168, 0, 187, 0.5);
   padding: 5px 15px;
   margin-left: 10px;
 }
@@ -61,9 +63,10 @@
   position: fixed;
   top: 0;
   width: 100%;
-  backdrop-filter: blur(5px); /* Розмиття фону */
+  backdrop-filter: blur(5px);
+  /* Розмиття фону */
   border-radius: 5px;
-  z-index: 999; 
+  z-index: 999;
 }
 
 .turn-back {
@@ -76,8 +79,27 @@
 }
 
 .history-transaction {
-  // height: 100vh;
+  height: 50%;
+  color: #333;
+  font-weight: bold;
   bottom: 0;
-  width: 100%;
-  background-color: #fff;
+  width: 90%;
+  margin: 0 auto;
+  background-color: rgba(252, 252, 252, 0.665);
+  box-shadow: 1px 2px 20px 1px rgb(108, 0, 137);
+  border-radius: 20px;
+  position: relative;
+
+  & p {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0 auto;
+    // width: 100%;
+  }
+}
+
+.no-cards {
+  margin-top: 25%;
 }

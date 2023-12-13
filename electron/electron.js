@@ -7,8 +7,8 @@ const isDev = process.env.IS_DEV == "true" ? true : false;
  
 function createWindow() {
   const mainWindow = new BrowserWindow({
-    width: 1024,
-    height: 750,
+    width: 1324,
+    height: 850,
     minHeight:650,
     minWidth:800,
     autoHideMenuBar: true,
